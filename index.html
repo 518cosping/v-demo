@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-demo</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./vue.js"></script>
+    
+</head>
+<body>
+    <div class="page-top">
+        <div class="page-content">
+            <h2>任务计划列表</h2>
+        </div>
+    </div>
+    <div class="main">
+        <h3 class="big-title">添加任务</h3>
+        <input type="text" class="task-input" v-model = "todo" @keyup.enter="keyup">
+        <ul class="task-count" v-show="list.length">
+            <li>{{filterList}}个任务未完成</li>
+            <li class="action">
+                <a href="#all">所有任务</a>
+                <a href="#unfinish">未完成任务</a>
+                <a href="#finish">完成任务</a>
+            </li>
+        </ul>
+        <div class="tasks">
+            <h3 class="big-title">任务列表:</h3>
+            <span class="no-task-tip" v-show="!list.length">当前任务列表为空</span>
+            <ul class="todo-list">
+                <li v-for="item in filterTodo" :class="{completed:item.checked,editing : editedTodo == item}">
+                    <div class="view">
+                        <input type="checkbox" class="toggle" v-model="item.checked">
+                        <label @dblclick="editingTodo(item)">{{item.title}}</label>
+                        <button class="destroy" @click="deleteTodo(item,$event)"></button>
+                    </div>
+                    <input type  = "text" 
+                    class        = 'edit' 
+                    v-model      = "item.title" 
+                    @keyup.enter = "editTodo"
+                    @keyup.esc   = "backTodo(item)"
+                    @blur        = "editTodo"
+                    v-focus      = "editedTodo == item">
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+    <script src="./index.js"></script>
+    <script>
+        
+    </script>
+</html>
